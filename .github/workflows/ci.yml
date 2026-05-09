@@ -29,7 +29,10 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Run Maven tests and generate Allure report
-        run: mvn -B test allure:report
+        run: |
+          mvn -B test
+          ls -la target/allure-results/
+          mvn allure:report
         if: always()
 
       - name: Deploy Allure report to GitHub Pages
