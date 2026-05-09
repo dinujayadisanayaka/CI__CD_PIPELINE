@@ -65,25 +65,15 @@ public class Demo {
         attachScreenshot("Facebook Home Page");
     }
 
-    @Test
-    @Story("Verify YouTube page title")
-    @Description("Navigate to YouTube and verify the page title contains 'YouTube'")
-    public void testcase4(){
-        navigateToUrl("https://youtube.com");
-        String title = verifyPageTitle();
-        Assert.assertTrue(title.contains("YouTube"), "Title should contain YouTube");
-        attachScreenshot("YouTube Home Page");
-    }
-
-//    @Test
-//    @Story("Verify Yahoo page title")
-//    @Description("Navigate to Yahoo and verify the page title contains 'Yahoo'")
-//    public void testcase4(){
-//        navigateToUrl("https://yahoo.com");
-//        String title = verifyPageTitle();
-//        Assert.assertTrue(title.contains("Yahoo"), "Title should contain Yahoo");
-//        attachScreenshot("Yahoo Home Page");
-//    }
+   @Test
+   @Story("Verify Yahoo page title")
+   @Description("Navigate to Yahoo and verify the page title contains 'Yahoo'")
+   public void testcase4(){
+       navigateToUrl("https://yahoo.com");
+       String title = verifyPageTitle();
+       Assert.assertTrue(title.contains("Yahoo"), "Title should contain Yahoo");
+       attachScreenshot("Yahoo Home Page");
+   }
 
     @Step("Navigate to URL: {url}")
     private void navigateToUrl(String url) {
