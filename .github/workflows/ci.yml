@@ -28,11 +28,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run Maven tests
-        run: mvn -B test
-
-      - name: Generate Allure report
-        run: mvn allure:report
+      - name: Run Maven tests and generate Allure report
+        run: mvn -B test allure:report
         if: always()
 
       - name: Upload Allure results
