@@ -1,14 +1,19 @@
 package githubactions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -32,34 +37,42 @@ public class Demo {
 
     @Test
     @Story("Verify GitHub page title")
-    @Description("Navigate to GitHub and verify the page title")
+    @Description("Navigate to GitHub and verify the page title contains 'GitHub'")
     public void testcase1(){
         navigateToUrl("https://github.com");
-        verifyPageTitle();
+        String title = verifyPageTitle();
+        Assert.assertTrue(title.contains("GitHub"), "Title should contain GitHub");
+        attachScreenshot("GitHub Home Page");
     }
 
     @Test
     @Story("Verify Google page title")
-    @Description("Navigate to Google and verify the page title")
+    @Description("Navigate to Google and verify the page title contains 'Google'")
     public void testcase2(){
         navigateToUrl("https://google.com");
-        verifyPageTitle();
+        String title = verifyPageTitle();
+        Assert.assertTrue(title.contains("Google"), "Title should contain Google");
+        attachScreenshot("Google Home Page");
     }
 
     @Test
     @Story("Verify Facebook page title")
-    @Description("Navigate to Facebook and verify the page title")
+    @Description("Navigate to Facebook and verify the page title contains 'Facebook'")
     public void testcase3(){
         navigateToUrl("https://facebook.com");
-        verifyPageTitle();
+        String title = verifyPageTitle();
+        Assert.assertTrue(title.contains("Facebook"), "Title should contain Facebook");
+        attachScreenshot("Facebook Home Page");
     }
 
     @Test
     @Story("Verify Yahoo page title")
-    @Description("Navigate to Yahoo and verify the page title")
+    @Description("Navigate to Yahoo and verify the page title contains 'Yahoo'")
     public void testcase4(){
         navigateToUrl("https://yahoo.com");
-        verifyPageTitle();
+        String title = verifyPageTitle();
+        Assert.assertTrue(title.contains("Yahoo"), "Title should contain Yahoo");
+        attachScreenshot("Yahoo Home Page");
     }
 
     @Step("Navigate to URL: {url}")
@@ -67,11 +80,17 @@ public class Demo {
         driver.get(url);
     }
 
-    @Step("Verify and log the page title")
-    private void verifyPageTitle() {
+    @Step("Verify and return the page title")
+    private String verifyPageTitle() {
         String title = driver.getTitle();
+        Allure.addAttachment("Page Title", title);
         System.out.println("Title: " + title);
-        // In a real scenario, you might add assertions here
+        return title;
+    }
+
+    @Attachment(value = "{description}", type = "image/png")
+    private byte[] attachScreenshot(String description) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
     @AfterMethod

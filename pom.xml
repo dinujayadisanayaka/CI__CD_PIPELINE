@@ -74,9 +74,6 @@
                         <include>**/*TestCase.java</include>
                         <include>**/Demo.java</include>
                     </includes>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
                     <properties>
                         <property>
                             <name>listener</name>

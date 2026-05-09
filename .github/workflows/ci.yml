@@ -32,6 +32,14 @@ jobs:
         run: mvn -B test allure:report
         if: always()
 
+      - name: Deploy Allure report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main' && always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: target/site/allure-maven-plugin
+          destination_dir: allure-report
+
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
         if: always()
